@@ -2,7 +2,6 @@
 
 import curses
 import curses.panel
-from sys import exit
 
 class Menu(object):
     """CLASS DESCRIPTION"""
@@ -35,13 +34,7 @@ class Menu(object):
     def show_window(self, window_title):
         self.selection = 0
         window_mgr = self.get_wm(window_title)
-        window_mgr.print_menu(self.selection)
         self.get_input(window_mgr)
-
-    def hide_window(self, window_title):
-        windata = self.get_windata(window_title)
-        windata['panel'].hide()
-        windata['window'].refresh()
 
     def increment_selection(self, window_mgr):
         if self.selection < len(window_mgr.entries) - 1:
@@ -62,6 +55,7 @@ class Menu(object):
 
     def get_input(self, window_mgr):
         while True:
+            window_mgr.print_menu(self.selection)
             c = window_mgr.window.getch()
 
             if c == curses.KEY_UP:
@@ -73,7 +67,6 @@ class Menu(object):
             elif c == ord('q'):
                 break
 
-            window_mgr.print_menu(self.selection)
 
 class WinManager(object):
     def __init__(self, name, screeny, screenx):
