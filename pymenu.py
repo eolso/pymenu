@@ -15,6 +15,7 @@ class Menu(object):
         curses.noecho()
         curses.start_color()
         curses.cbreak()
+        curses.curs_set(0)
 
     def __enter__(self):
         return self
